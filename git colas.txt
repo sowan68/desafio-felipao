@@ -1,0 +1,12 @@
+git init       → começa um repositório
+git clone      → baixa um repositório
+git status     → vê o que mudou
+git add .      → prepara as mudanças
+git commit     → registra as mudanças
+git push       → envia para o GitHub
+git pull       → baixa do GitHub
+git branch     → vê branches
+git switch     → troca de branch
+git log        → vê histórico
+git restore    → desfaz alterações
+git rm         → remove arquivos
