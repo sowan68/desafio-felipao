@@ -1,24 +1,24 @@
 import random
 
 
-# 1. BIBLIOTECA DE MONSTROS
+# BIBLIOTECA DE MONSTROS
 class Monstro:
     def __init__(self, nome, hp, ataque):
         self.nome = nome
-        self.hp = random.randint(50,100)
-        self.ataque = random.randint(10,30)
-        self.xp = random.randint(500,1500)
+        self.hp = random.randint(50, 100)
+        self.ataque = ataque
+        self.xp = random.randint(10000, 15000)
 
 
 monstros = [
-    Monstro("Goblin", 50, 10),
-    Monstro("Orc", 80, 15),
-    Monstro("Esqueleto", 60, 12),
-    Monstro("Lobo", 40, 8),
+    Monstro("Goblin", 50, 20),
+    Monstro("Orc", 80, 25),
+    Monstro("Esqueleto", 60, 22),
+    Monstro("Lobo", 40, 10),
 ]
 
 
-# 2. PERGUNTA INICIAL
+# PERGUNTA INICIAL
 pergunta = input(
     "Bem-vindo jovem aventureiro! Nosso reino está sob um ataque agora, "
     "você poderia nos ajudar? "
@@ -32,7 +32,10 @@ while True:
         break
 
     elif pergunta in ("nao", "n", "não"):
-        print("Vocês não merecem estar no nosso reino. Guardas! Mandem-os para o calabouço.")
+        print(
+            "Vocês não merecem estar no nosso reino. "
+            "Guardas! Mandem-os para o calabouço."
+        )
         exit()
 
     else:
@@ -41,25 +44,34 @@ while True:
         ).strip().lower()
 
 
-# 3. STATUS DO JOGADOR
+# STATUS DO JOGADOR
 hp = 100
 xp = 0
 
 
-# 4. EXPLORAÇÃO + BATALHAS
+# EXPLORAÇÃO + BATALHAS
 while True:
 
-    comando = input("\nO que deseja fazer? (digite explorar): ").strip().lower()
+    comando = input(
+        '\nO que deseja fazer? (digite "explorar"): '
+    ).strip().lower()
 
     if comando == "explorar":
 
-        # Escolhe um monstro aleatório
-        monstro = random.choice(monstros)
+    
+        modelo = random.choice(monstros)
+
+    
+        monstro = Monstro(
+            modelo.nome,
+            modelo.hp,
+            modelo.ataque
+        )
 
         print(f"\nVocê encontrou um {monstro.nome}!")
         print(f"HP do inimigo: {monstro.hp}")
 
-        # 5. BATALHA
+        # BATALHA
         while hp > 0 and monstro.hp > 0:
 
             print(f"\nSeu HP: {hp}/100")
@@ -73,14 +85,14 @@ while True:
 
             if acao == "atacar":
 
-                dano = random.randint(20,30)
+                dano = random.randint(20, 30)
                 monstro.hp -= dano
 
                 print(f"Você causou {dano} de dano!")
 
             elif acao == "curar":
 
-                cura = random.randint(10,40)
+                cura = random.randint(30, 50)
                 hp += cura
 
                 if hp > 100:
@@ -96,19 +108,20 @@ while True:
             # Monstro ataca
             if monstro.hp > 0:
 
-                hp -= monstro.ataque
+                dano_inimigo = random.randint(monstro.ataque, 50)
+
+                hp -= dano_inimigo
 
                 print(
                     f"O {monstro.nome} atacou e causou "
-                    f"{monstro.ataque} de dano!"
+                    f"{dano_inimigo} de dano!"
                 )
 
-
-        # 6. RESULTADO DA BATALHA
+        # RESULTADO DA BATALHA
         if hp <= 0:
 
             print("\nVocê foi derrotado!")
-            break
+            exit()
 
         elif monstro.hp <= 0:
 
@@ -119,6 +132,42 @@ while True:
             print(f"Você ganhou {monstro.xp} XP!")
             print(f"XP atual: {xp}")
 
+            # PATENTE
+            if xp < 1000:
+                patente = "Recruta"
+
+            elif xp <= 2000:
+                patente = "Soldado"
+
+            elif xp <= 5000:
+                patente = "Sargento"
+
+            elif xp <= 7000:
+                patente = "Capitão"
+
+            elif xp <= 8000:
+                patente = "Comandante"
+
+            elif xp <= 9000:
+                patente = "Lorde"
+
+            elif xp <= 10000:
+                patente = "Rei"
+
+            else:
+                patente = "Imperador"
+
+            print(f"Seu posto atual: {patente}")
+
+            # FINAL DO JOGO
+            if xp >= 10001:
+
+                print("\n🏆 PARABÉNS!")
+                print("Você se tornou o IMPERADOR!")
+                print("Sua jornada chegou ao fim!")
+
+                exit()
+
     else:
 
-        print("Não podemos fazer isso no momento! (digite ""explorar"")")
+        print('Não podemos fazer isso no momento! ')
