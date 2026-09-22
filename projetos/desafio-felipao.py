@@ -7,13 +7,13 @@ class Monstro:
         self.nome = nome
         self.hp = random.randint(50, 100)
         self.ataque = ataque
-        self.xp = random.randint(10000, 15000)
+        self.xp = random.randint(500, 1500)
 
 
 monstros = [
     Monstro("Goblin", 50, 20),
     Monstro("Orc", 80, 25),
-    Monstro("Esqueleto", 60, 22),
+    Monstro("Esqueleto", 60, 21),
     Monstro("Lobo", 40, 10),
 ]
 
